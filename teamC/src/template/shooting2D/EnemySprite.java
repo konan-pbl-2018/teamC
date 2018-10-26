@@ -13,7 +13,7 @@ public class EnemySprite extends Sprite {
 
 	// 弾幕の最大数
 	private final int MAX_DANMAKU = 32;
-	
+
 	// 弾の発射時の敵からの位置
 	private final int BULLET_DISTANCE = 1;
 
@@ -21,8 +21,12 @@ public class EnemySprite extends Sprite {
 	int rangeWidth = TemplateShooting2D.RANGE;
 	int rangeHeight = TemplateShooting2D.RANGE;
 
+	//
+	//敵を生成するときにその敵のステータスを設定する。
+	//
 	public EnemySprite(String imageFile) {
 		super(imageFile);
+
 	}
 
 	// ////////////////////////////////////////////////////
@@ -33,7 +37,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * 衝突判定のBounding Sphere（境界球）をcollisionRadiusで設定する
-	 * 
+	 *
 	 * @param collisionRadius
 	 *            -- BoundingSphereの半径
 	 */
@@ -43,7 +47,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * 衝突判定のBounding Sphere（境界球）の半径を返す
-	 * 
+	 *
 	 * @return　 BoundingSphereの半径
 	 */
 	public double getCollisionRadius() {
@@ -58,12 +62,12 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * 弾幕が入ったArrayListを返す
-	 * 
+	 *
 	 * @return -- 弾幕が入ったArrayList
 	 */
 	public ArrayList<EnemyBullet> shootDanmaku() {
 		double bulletX, bulletY;
-		
+
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
 		for (int i = 0; i < MAX_DANMAKU; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
@@ -108,7 +112,7 @@ public class EnemySprite extends Sprite {
 			vel.setY(Math.abs(this.getVelocity().getY()) * -1.0);
 			break;
 		}
-		
+
 		setVelocity(vel);
 		super.motion(interval);
 
@@ -116,12 +120,12 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * 画面をX方向に出ていないか?
-	 * 
+	 *
 	 * @return -1: Xの負の方向に出ている, 0: X方向に出ていない, 1: Xの正の方向に出ている
 	 */
 	private int insideX() {
 		if (this.getPosition().getX() > rangeWidth / 2.0) {
-			return 1;		
+			return 1;
 		} else if (this.getPosition().getX() < -rangeWidth / 2.0) {
 			return -1;
 		} else {
@@ -131,7 +135,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * 画面をY方向に出ていないか?
-	 * 
+	 *
 	 * @return -1: Yの負の方向に出ている, 0: Y方向に出ていない, 1: Yの正の方向に出ている
 	 */
 	private int insideY() {
