@@ -1,6 +1,5 @@
 package framework.gameMain;
 
-import java.awt.Canvas;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -20,7 +19,6 @@ import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
-import framework.game2D.OvergroundActor2D;
 import framework.model3D.Position3D;
 import framework.model3D.Universe;
 import framework.physics.PhysicsUtility;
@@ -45,7 +43,11 @@ public abstract class SimpleShootingGame extends AbstractGame implements
 	// 見える範囲を幅と高さで指定して、その値をグローバル変数にしています。
 	protected int viewRangeWidth;
 	protected int viewRangeHeight;
-	
+
+	protected double viewCenterX = 0;
+	protected double viewCenterY = 0;
+
+
 	public SimpleShootingGame() {
 		PhysicsUtility.setGravityDirection(new Vector3d(0.0, 0.0, 0.0));
 	}
@@ -54,7 +56,7 @@ public abstract class SimpleShootingGame extends AbstractGame implements
 	protected IGameState getCurrentGameState() {
 		return currentState;
 	}
-	
+
 	protected void setCurrentGameState(IGameState state) {
 		currentState = state;
 	}
@@ -140,7 +142,7 @@ public abstract class SimpleShootingGame extends AbstractGame implements
 			}
 		};
 	}
-	
+
 	protected void changeContainer(RWTContainer container) {
 		frame.setContentPane(container);
 		GraphicsConfiguration gc = null;
@@ -155,16 +157,33 @@ public abstract class SimpleShootingGame extends AbstractGame implements
 			gct3D.setStencilSize(8);
 			gc = gd.getBestConfiguration(gct3D);
 		}
-		container.build(gc);		
+		container.build(gc);
 	}
 
+	public void setViewCenter(double x, double y) {
+		viewCenterX = x;
+		viewCenterY = y;
+		updateView();
+	}
+
+	public double getViewCenterX() {
+		return viewCenterX;
+	}
+
+	public double getViewCenterY() {
+		return viewCenterY;
+	}
 	protected void setViewRange(int width, int height) {
 		viewRangeWidth = width;
 		viewRangeHeight = height;
+		updateView();
+	};
+
+	private void updateView() {
 		Transform3D t = new Transform3D();
-		t.ortho(-1.0 * width / 2.0, width / 2.0, -1.0 * height / 2.0,
-				height / 2.0, 0.1, 10000);
+		t.ortho(-1.0 * viewRangeWidth / 2.0 + viewCenterX, viewRangeWidth / 2.0 + viewCenterX,
+				-1.0 * viewRangeHeight / 2.0 + viewCenterY, viewRangeHeight / 2.0 + viewCenterY, 0.1, 10000);
 		camera.getView().setCompatibilityModeEnable(true);
 		camera.getView().setVpcToEc(t);
-	};
+	}
 }
