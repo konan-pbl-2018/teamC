@@ -27,6 +27,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private long lastEnemyShootTime = 0;
 
 	public static int EnemyShootingDownNumber=0;
+	long PlayTimeCount = 0;
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
@@ -74,6 +75,12 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
 		back.setPosition(20, 0);
+
+		//ゲームを始めてからの経過時間のカウント
+		PlayTimeCount += interval;
+		if(PlayTimeCount / 1000 >= 10) {
+			System.out.println("十秒");
+		}
 
 		// /////////////////////////////////////////////////////////
 		//
