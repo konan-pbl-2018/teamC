@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
 import framework.game2D.Ground2D;
+import framework.game2D.Sprite;
 import framework.game2D.Velocity2D;
 import framework.gameMain.SimpleShootingGame;
 import framework.model3D.Universe;
@@ -25,11 +26,12 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private long lastMyShipBulletShootDanamakuTime = 0;
 	private long lastEnemyShootTime = 0;
 
-	long PlayTime=0;
+	public static int EnemyShootingDownNumber=0;
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
 	public static final int RANGE = 30;
+	private Sprite back;
 
 	@Override
 	public void init(Universe universe) {
@@ -48,9 +50,12 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		enemySprite.setVelocity(5.0, 5.0);
 		universe.place(enemySprite);
 
-		stage = new Ground2D(null, "data\\images\\m101.jpg", windowSizeWidth,
+		stage = new Ground2D(null, null, windowSizeWidth,
 				windowSizeHeight);
 		universe.place(stage);
+
+		back = new Sprite("data\\images\\m101.jpg", 30);
+		universe.place(back);;
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
 		setViewRange(RANGE, RANGE);
@@ -68,12 +73,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
-
-		//ゲームを始めてからの経過時間のカウント
-		PlayTime += interval;
-		if(PlayTime/1000 >= 10) {//今は10秒
-			System.out.println("十秒");
-		}
+		back.setPosition(20, 0);
 
 		// /////////////////////////////////////////////////////////
 		//
