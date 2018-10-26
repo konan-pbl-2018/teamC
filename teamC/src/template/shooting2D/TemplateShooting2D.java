@@ -25,6 +25,8 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private long lastMyShipBulletShootDanamakuTime = 0;
 	private long lastEnemyShootTime = 0;
 
+	long PlayTime=0;
+
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
 	public static final int RANGE = 30;
@@ -66,6 +68,12 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
+
+		//ゲームを始めてからの経過時間のカウント
+		PlayTime += interval;
+		if(PlayTime/1000 >= 10) {//今は10秒
+			System.out.println("十秒");
+		}
 
 		// /////////////////////////////////////////////////////////
 		//
@@ -221,7 +229,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（myShipBulletFromMyShip）をプレイヤーの弾のリストに設定する
-	 * 
+	 *
 	 * @param myShipBulletFromMyShip
 	 */
 	public void setMyShipBullet(ArrayList<MyShipBullet> myShipBulletFromMyShip) {
@@ -233,7 +241,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（enemyBulletListFromEnemy）を敵の弾のリストに設定する
-	 * 
+	 *
 	 * @param enemyBulletListFromEnemy
 	 */
 	public void setEnemyBullet(ArrayList<EnemyBullet> enemyBulletListFromEnemy) {
@@ -245,7 +253,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * ゲームのメイン
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
