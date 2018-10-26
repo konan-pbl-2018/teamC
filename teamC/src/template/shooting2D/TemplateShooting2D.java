@@ -15,7 +15,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private MyShipBullet myShipBullet;
 	private ArrayList<MyShipBullet> myShipBulletList = new ArrayList<MyShipBullet>();
 	private ArrayList<MyShipBullet> myShipBulletFromMyShip = new ArrayList<MyShipBullet>();
-	
+
 	private MyShipScript myShipScript;
 
 	private EnemySprite enemySprite;
@@ -47,7 +47,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
 		myShipSprite.setPosition(0.0, -10.0);
 		universe.place(myShipSprite);
-		
+
 		myShipScript=new MyShipScript("data\\\\images\\\\MyShip.gif",5,5);
 		myShipScript.setPosition(0.0,0.0);
 		universe.place(myShipScript);
@@ -63,8 +63,8 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 		back = new Back("data\\sozai\\back ground.png", RANGE / 2);
 		universe.place(back);
-		
-		
+
+
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
 		setViewRange(RANGE, RANGE);
@@ -92,7 +92,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		//ゲーム画面の背景を時間経過によって動かす
 		back.setPosition(0 , 0);
 
-
+		myShipScript.move(virtualController);
 		// /////////////////////////////////////////////////////////
 		//
 		// 各登場物のアクション
