@@ -15,6 +15,8 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private MyShipBullet myShipBullet;
 	private ArrayList<MyShipBullet> myShipBulletList = new ArrayList<MyShipBullet>();
 	private ArrayList<MyShipBullet> myShipBulletFromMyShip = new ArrayList<MyShipBullet>();
+	
+	private MyShipScript myShipScript;
 
 	private EnemySprite enemySprite;
 	private ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
@@ -31,7 +33,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
-	public static final int RANGE = 50;
+	public static final int RANGE = 30;
 	private Sprite back;
 
 	@Override
@@ -45,6 +47,10 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
 		myShipSprite.setPosition(0.0, -10.0);
 		universe.place(myShipSprite);
+		
+		myShipScript=new MyShipScript("data\\\\images\\\\MyShip.gif",5,5);
+		myShipScript.setPosition(0.0,0.0);
+		universe.place(myShipScript);
 
 		enemySprite = new EnemySprite("data\\images\\Enemy.gif");
 		enemySprite.setPosition(0.0, 10.0);
@@ -55,8 +61,10 @@ public class TemplateShooting2D extends SimpleShootingGame {
 				windowSizeHeight);
 		universe.place(stage);
 
-		back = new Sprite("data\\images\\m101.jpg", RANGE / 2);
-		universe.place(back);;
+		back = new Back("data\\sozai\\back ground.png", RANGE / 2);
+		universe.place(back);
+		
+		
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
 		setViewRange(RANGE, RANGE);
@@ -66,7 +74,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	public RWTFrame3D createFrame3D() {
 		// TODO Auto-generated method stub
 		RWTFrame3D f = new RWTFrame3D();
-		f.setSize(800, 800);
+		f.setSize(960, 960);
 		// f.setExtendedState(Frame.MAXIMIZED_BOTH);
 		f.setTitle("Template for Shooting 2DGame");
 		return f;
@@ -75,7 +83,6 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
 
-
 		//ゲームを始めてからの経過時間のカウント
 		PlayTimeCount += interval;
 		if(PlayTimeCount / 1000 >= 10) {
@@ -83,7 +90,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		}
 
 		//ゲーム画面の背景を時間経過によって動かす
-		back.setPosition(20 - (double)PlayTimeCount / 1000, 0);
+		back.setPosition(0 , 0);
 
 
 		// /////////////////////////////////////////////////////////

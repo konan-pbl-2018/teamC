@@ -1,7 +1,5 @@
 package framework.game2D;
 
-import java.math.BigDecimal;
-
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
 import javax.media.j3d.TextureAttributes;
@@ -18,24 +16,24 @@ import framework.model3D.BaseObject3D;
 
 /**
  * 2次元の登場物のクラス
- * 
+ *
  * @author T.Kuno
- * 
+ *
  */
 public class Sprite implements Movable {
-	Box box = null;
-	private TransformGroup transformGroup;
+	protected Box box = null;
+	protected TransformGroup transformGroup;
 	private double collisionRadius;
-	private float scale = 1.0f;
+	protected float scale = 1.0f;
 
 	// 登場物の配置位置
-	private Position2D position = new Position2D();
-	
+	protected Position2D position = new Position2D();
+
 	// 登場物の配置位置の奥行
 	private double depth = 0.0;
-	
+
 	// 登場物の速度
-	private Velocity2D velocity = new Velocity2D();
+	protected Velocity2D velocity = new Velocity2D();
 
 
 	// /////////////////////////////////////////////////
@@ -43,11 +41,13 @@ public class Sprite implements Movable {
 	// コンストラクタ
 	//
 	// /////////////////////////////////////////////////
+	public Sprite() {
+	}
 
 	public Sprite(String imageFile) {
 		this(imageFile, 1.0f);
 	}
-	
+
 	public Sprite(String imageFile, float scale) {
 		this(imageFile, scale, 0.0);
 	}
@@ -62,7 +62,7 @@ public class Sprite implements Movable {
 			appearance.setTexture(loader.getTexture());
 			appearance.setCapability(Appearance.ALLOW_TEXTURE_READ);
 			appearance.setCapability(Appearance.ALLOW_TEXTURE_WRITE);
-		} 
+		}
 
 		Material material = new Material();
 		material.setLightingEnable(false);
@@ -92,7 +92,7 @@ public class Sprite implements Movable {
 		transAttributes.setDstBlendFunction(TransparencyAttributes.BLEND_SRC_ALPHA);
 		appearance.setTransparencyAttributes(transAttributes);
 
-		box = new Box(1.0f * scale, 1.0f * scale, 0.0f, Box.GENERATE_TEXTURE_COORDS | Box.GENERATE_NORMALS, appearance);
+		box = new Box(1.0f * scale, 1.0f * scale, 0.0f, Box.GENERATE_TEXTURE_COORDS | Box.GENERATE_NORMALS, appearance);///////////
 		transformGroup.addChild(box);
 		transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
@@ -111,7 +111,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * スプライトの位置を設定する。
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -121,10 +121,10 @@ public class Sprite implements Movable {
 		t3d.setTranslation(new Vector3d(x, y, depth));
 		transformGroup.setTransform(t3d);
 	}
-	
+
 	/**
 	 * スプライトの位置を設定する。
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -155,7 +155,7 @@ public class Sprite implements Movable {
 	// //////////////////////////////////////////////////////
 	/**
 	 * スプライトの速度を設定する。
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -189,7 +189,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * オブジェクトとの衝突判定をし、その結果に応じて物体を動かす
-	 * 
+	 *
 	 * @param interval
 	 * @param mazeGround
 	 *            --- 迷路ゲームのステージ
@@ -202,7 +202,7 @@ public class Sprite implements Movable {
 		mazeGround.collisionResponse(this);
 	}
 
-	
+
 	// //////////////////////////////
 	//
 	// プレイヤーを左方向に動かすメソッド
@@ -211,7 +211,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * キャラクタの位置を左方向に動かす。
-	 * 
+	 *
 	 * @param d
 	 *            動かす量
 	 */
@@ -228,7 +228,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * キャラクタの位置を右方向に動かす。
-	 * 
+	 *
 	 * @param d
 	 *            動かす量
 	 */
@@ -245,7 +245,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * キャラクタの位置を上方向に動かす。
-	 * 
+	 *
 	 * @param d
 	 *            動かす量
 	 */
@@ -262,7 +262,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * キャラクタの位置を下方向に動かす。
-	 * 
+	 *
 	 * @param d
 	 *            動かす量
 	 */
@@ -279,7 +279,7 @@ public class Sprite implements Movable {
 
 	/**
 	 * 衝突判定のBounding Sphere（境界球）をcollisionRadiusで設定する
-	 * 
+	 *
 	 * @param collisionRadius
 	 *            -- BoundingSphereの半径
 	 */
@@ -289,13 +289,13 @@ public class Sprite implements Movable {
 
 	/**
 	 * 衝突判定のBounding Sphere（境界球）の半径を返す
-	 * 
+	 *
 	 * @return　 BoundingSphereの半径
 	 */
 	public double getCollisionRadius() {
 		return collisionRadius;
 	}
-	
+
 	/**
 	 * イメージを変更する
 	 * @param imageFile イメージファイル名
@@ -305,7 +305,7 @@ public class Sprite implements Movable {
 		if (imageFile != null && appearance != null){
 			TextureLoader loader = new TextureLoader(imageFile, TextureLoader.BY_REFERENCE, null);
 			appearance.setTexture(loader.getTexture());
-		} 
+		}
 	}
 
 	@Override
@@ -342,18 +342,18 @@ public class Sprite implements Movable {
 			} else if((otherMinY <= thisMinY && otherMaxY >= thisMaxY)
 				|| (otherMinY >= thisMinY && otherMaxY <= thisMaxY)){
 				if(otherMaxX > thisMinX && otherMaxX < thisMaxX){
-					return true;				
+					return true;
 				} else if(otherMinX < thisMaxX && otherMinX > thisMaxX){
-					return true;				
+					return true;
 				}
 			} else if (otherMinX > thisMinX && otherMinX < thisMaxX && otherMaxY > thisMinY && otherMaxY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMaxX > thisMinX && otherMaxX < thisMaxX && otherMaxY > thisMinY && otherMaxY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMaxX > thisMinX && otherMaxX < thisMaxX && otherMinY > thisMinY && otherMinY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMinX > thisMinX && otherMinX < thisMaxX && otherMinY > thisMinY && otherMinY < thisMaxY) {
-				return true;			
+				return true;
 			}
 			return false;
 		} else if (other instanceof Actor2D) {
@@ -364,11 +364,11 @@ public class Sprite implements Movable {
 				return true;
 			} else {
 				return false;
-			}			
+			}
 		}
 		return false;
 	}
-	
+
 	public boolean checkCollisionWithRadius(Movable other) {
 		if (other instanceof Sprite) {
 			Sprite otherSprite = (Sprite)other;
@@ -390,18 +390,18 @@ public class Sprite implements Movable {
 			} else if((otherMinY <= thisMinY && otherMaxY >= thisMaxY)
 				|| (otherMinY >= thisMinY && otherMaxY <= thisMaxY)){
 				if(otherMaxX > thisMinX && otherMaxX < thisMaxX){
-					return true;				
+					return true;
 				} else if(otherMinX < thisMaxX && otherMinX > thisMaxX){
-					return true;				
+					return true;
 				}
 			} else if (otherMinX > thisMinX && otherMinX < thisMaxX && otherMaxY > thisMinY && otherMaxY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMaxX > thisMinX && otherMaxX < thisMaxX && otherMaxY > thisMinY && otherMaxY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMaxX > thisMinX && otherMaxX < thisMaxX && otherMinY > thisMinY && otherMinY < thisMaxY) {
-				return true;			
+				return true;
 			} else if (otherMinX > thisMinX && otherMinX < thisMaxX && otherMinY > thisMinY && otherMinY < thisMaxY) {
-				return true;			
+				return true;
 			}
 			return false;
 		} else if (other instanceof Actor2D) {
@@ -412,7 +412,7 @@ public class Sprite implements Movable {
 				return true;
 			} else {
 				return false;
-			}			
+			}
 		}
 		return false;
 	}
