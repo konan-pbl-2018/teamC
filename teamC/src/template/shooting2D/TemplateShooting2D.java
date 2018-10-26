@@ -31,7 +31,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
-	public static final int RANGE = 30;
+	public static final int RANGE = 50;
 	private Sprite back;
 
 	@Override
@@ -55,7 +55,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 				windowSizeHeight);
 		universe.place(stage);
 
-		back = new Sprite("data\\images\\m101.jpg", 30);
+		back = new Sprite("data\\images\\m101.jpg", RANGE / 2);
 		universe.place(back);;
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
@@ -74,13 +74,17 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
-		back.setPosition(20, 0);
+
 
 		//ゲームを始めてからの経過時間のカウント
 		PlayTimeCount += interval;
 		if(PlayTimeCount / 1000 >= 10) {
 			System.out.println("十秒");
 		}
+
+		//ゲーム画面の背景を時間経過によって動かす
+		back.setPosition(20 - (double)PlayTimeCount / 1000, 0);
+
 
 		// /////////////////////////////////////////////////////////
 		//
