@@ -15,7 +15,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private MyShipBullet myShipBullet;
 	private ArrayList<MyShipBullet> myShipBulletList = new ArrayList<MyShipBullet>();
 	private ArrayList<MyShipBullet> myShipBulletFromMyShip = new ArrayList<MyShipBullet>();
-	
+
 	private MyShipScript myShipScript;
 
 	private EnemySprite enemySprite;
@@ -29,12 +29,13 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private long lastEnemyShootTime = 0;
 
 	public static int EnemyShootingDownNumber=0;
-	long PlayTimeCount = 0;
+	public static long PlayTimeCount = 0;
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
 	public static final int RANGE = 30;
 	private Sprite back;
+	private Back background;
 
 	@Override
 	public void init(Universe universe) {
@@ -47,7 +48,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
 		myShipSprite.setPosition(0.0, -10.0);
 		universe.place(myShipSprite);
-		
+
 		myShipScript=new MyShipScript("data\\\\images\\\\MyShip.gif",5,5);
 		myShipScript.setPosition(0.0,0.0);
 		universe.place(myShipScript);
@@ -61,10 +62,11 @@ public class TemplateShooting2D extends SimpleShootingGame {
 				windowSizeHeight);
 		universe.place(stage);
 
-		back = new Back("data\\sozai\\back ground.png", RANGE / 2);
-		universe.place(back);
-		
-		
+//		back = new Back("data\\sozai\\back ground.png", RANGE / 2);
+//		universe.place(back);
+
+		background=new Back("data\\sozai\\back ground.png", RANGE / 2);
+		universe.place(background);
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
 		setViewRange(RANGE, RANGE);
@@ -90,8 +92,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		}
 
 		//ゲーム画面の背景を時間経過によって動かす
-		back.setPosition(0 , 0);
-
+		background.display();
 
 		// /////////////////////////////////////////////////////////
 		//

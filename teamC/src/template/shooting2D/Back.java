@@ -61,5 +61,8 @@ public class Back extends Sprite {
 		setPosition(0.0, 0.0, 0.0);
 		velocity.set(0.0, 0.0);
 		setCollisionRadius(1.0);	}
+	public void display() {
+		setPosition(15.0 - ((double)TemplateShooting2D.PlayTimeCount)/4000.0 , 0);
+	}
 
 }

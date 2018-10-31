@@ -1,6 +1,5 @@
 package template.shooting2D;
 
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
