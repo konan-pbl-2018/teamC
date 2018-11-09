@@ -104,6 +104,12 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		start();
 	}
 
+	public void rpg() {
+		stop();
+		setCurrentGameState(rpgGameState);
+		start();
+	}
+
 	@Override
 	public void init(Universe universe) {
 
