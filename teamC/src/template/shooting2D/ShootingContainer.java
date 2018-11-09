@@ -3,6 +3,7 @@ package template.shooting2D;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
+import framework.RWT.RWTCanvas3D;
 import framework.RWT.RWTContainer;
 import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
@@ -10,6 +11,7 @@ import framework.RWT.RWTVirtualKey;
 
 public class ShootingContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
+	RWTCanvas3D canvas;
 	private RWTLabel startLabel = new RWTLabel();
 
 	public ShootingContainer(TemplateShooting2DMultiStates game) {
@@ -18,12 +20,23 @@ public class ShootingContainer extends RWTContainer {
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
+		if (gc != null) {
+			canvas = new RWTCanvas3D(gc);
+		} else {
+			canvas = new RWTCanvas3D();
+		}
+		canvas.setRelativePosition(0.0f, 0.1f);
+		canvas.setRelativeSize(1.0f, 0.9f);
+		addCanvas(canvas);
+
 //		RWTLabel startLabel = new RWTLabel();
-		startLabel.setString("Start");
-		startLabel.setRelativePosition(0.3f, 0.5f);
+		startLabel.setString("*****");
+		startLabel.setRelativePosition(0.3f, 0.1f);
 		Font f = new Font("", Font.PLAIN, 60);
 		startLabel.setFont(f);
 		addWidget(startLabel);
+
+		repaint();
 	}
 
 	@Override

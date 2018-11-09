@@ -35,6 +35,10 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
 	private IGameState rpgGameState = null;
+//	private IGameState shootingGameState = null;/////////////////////////////////////////ここから下が
+	//変更点です。
+	private int time;
+	private RWTContainer container;///////////////////////////////////////////////////////
 
 	public TemplateShooting2DMultiStates() {
 		super();
@@ -42,13 +46,15 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			@Override
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
-				RWTContainer container = new StartContainer(TemplateShooting2DMultiStates.this);
+				container = new StartContainer(TemplateShooting2DMultiStates.this);
 				changeContainer(container);
 			}
+
 			@Override
 			public boolean useTimer() {
 				return false;
 			}
+
 			@Override
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
@@ -57,13 +63,15 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			@Override
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
-				RWTContainer container = new EndingContainer(TemplateShooting2DMultiStates.this);
+				container = new EndingContainer(TemplateShooting2DMultiStates.this);
 				changeContainer(container);
 			}
+
 			@Override
 			public boolean useTimer() {
 				return false;
 			}
+
 			@Override
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
@@ -72,18 +80,47 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			@Override
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
-				RWTContainer container = new RPGContainer(TemplateShooting2DMultiStates.this);
+				container = new RPGContainer(TemplateShooting2DMultiStates.this);
 				changeContainer(container);
 			}
+
 			@Override
 			public boolean useTimer() {
 				return false;
 			}
+
 			@Override
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
 		};
+//		shootingGameState = new IGameState() {
+//			private int time;
+//
+//			@Override
+//			public void init(RWTFrame3D frame) {
+//				TemplateShooting2DMultiStates.this.frame = frame;
+//				container = new ShootingContainer(TemplateShooting2DMultiStates.this);
+//				changeContainer(container);
+//			}
+//
+//			@Override
+//			public boolean useTimer() {
+//				return true;
+//			}
+//
+//			@Override
+//			public void update(RWTVirtualController virtualController, long interval) {
+//				System.out.println("a");
+//				time += interval;
+//				((ShootingContainer) container).setStartLabelText("" + time);
+//			}
+//		};
 		setCurrentGameState(initialGameState);
+	}
+
+	protected RWTContainer createRWTContainer() {
+		container = new ShootingContainer(TemplateShooting2DMultiStates.this);
+		return container;
 	}
 
 	public void restart() {
@@ -147,6 +184,9 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
+		System.out.println("a");
+		time += interval;
+		((ShootingContainer) container).setStartLabelText("" + time);
 
 		if (virtualController.isKeyDown(Event.ENTER)) {
 			ending();
@@ -231,7 +271,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// プレイヤーの弾を動かす
 		for (int i = 0; i < myShipBulletList.size(); i++) {
 			MyShipBullet myShipBullet = myShipBulletList.get(i);
-			myShipBullet.motion(interval);		// プレイヤーの弾の移動
+			myShipBullet.motion(interval); // プレイヤーの弾の移動
 			if (myShipBullet.isInScreen(viewRangeWidth, viewRangeHeight) == false) {
 				// プレイヤーの弾を消す
 				universe.displace(myShipBullet);
@@ -245,7 +285,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// 敵の弾を動かす。同時にウィンドウ外に出てしまったかどうかを判定し、出てしまったらウインドウから弾を消す。
 		for (int i = 0; i < enemyBulletList.size(); i++) {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
-			enemyBullet.motion(interval);		// 敵の弾の移動
+			enemyBullet.motion(interval); // 敵の弾の移動
 			if (enemyBullet.isInScreen(viewRangeWidth, viewRangeHeight) == false) {
 				// 敵の弾を消す
 				universe.displace(enemyBullet);
