@@ -35,7 +35,6 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
 	private IGameState rpgGameState = null;
-	private IGameState shootingGameState = null;
 
 	public TemplateShooting2DMultiStates() {
 		super();
@@ -74,21 +73,6 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
 				RWTContainer container = new RPGContainer(TemplateShooting2DMultiStates.this);
-				changeContainer(container);
-			}
-			@Override
-			public boolean useTimer() {
-				return false;
-			}
-			@Override
-			public void update(RWTVirtualController virtualController, long interval) {
-			}
-		};
-		shootingGameState = new IGameState() {
-			@Override
-			public void init(RWTFrame3D frame) {
-				TemplateShooting2DMultiStates.this.frame = frame;
-				RWTContainer container = new ShootingContainer(TemplateShooting2DMultiStates.this);
 				changeContainer(container);
 			}
 			@Override
