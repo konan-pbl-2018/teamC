@@ -2,9 +2,6 @@ package template.shooting2D;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Vector2d;
-
-import framework.game2D.Actor2D;
 import framework.game2D.Sprite;
 import framework.game2D.Velocity2D;
 
@@ -30,13 +27,13 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * 弾幕が入ったArrayListを返す
-	 * 
+	 *
 	 * @return -- 弾幕が入ったArrayList
 	 */
 	public ArrayList<MyShipBullet> shootDanmaku() {
 		ArrayList<MyShipBullet> myShipBulletList = new ArrayList<MyShipBullet>();
 		for (int i = 0; i < MAX_DANMAKU; i++) {
-			myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
+			//myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 
 			bulletX = BULLET_DISTANCE
 					* (Math.cos(i * (2 * Math.PI / MAX_DANMAKU)));
@@ -62,7 +59,7 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * widthとheightで決められたウィンドウの幅の中にプレイヤーがいるかどうかを返す
-	 * 
+	 *
 	 * @param width
 	 * @param height
 	 * @return
