@@ -141,6 +141,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
+
 		if (virtualController.isKeyDown(Event.ENTER)) {
 			ending();
 		}
