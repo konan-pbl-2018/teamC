@@ -61,10 +61,9 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		stage = new Ground2D(null, null, windowSizeWidth,
 				windowSizeHeight);
 		universe.place(stage);
-
 //		back = new Back("data\\sozai\\back ground.png", RANGE / 2);
 //		universe.place(back);
-
+		
 		background=new Back("data\\sozai\\back ground.png", RANGE / 2);
 		universe.place(background);
 
@@ -93,6 +92,8 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 		//ƒQ[ƒ€‰æ–Ê‚Ì”wŒi‚ğŠÔŒo‰ß‚É‚æ‚Á‚Ä“®‚©‚·
 		background.display();
+
+		myShipScript.move(virtualController);
 
 		// /////////////////////////////////////////////////////////
 		//
