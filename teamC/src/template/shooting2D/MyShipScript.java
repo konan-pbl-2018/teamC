@@ -7,6 +7,7 @@ public class MyShipScript extends Sprite {
 	public int myShipHP;
 	public double speed;
 	public int playerShift=0;//プレイヤー0かプレイヤー１かを指定
+
 	//インスタンス生成時に初期値を設定
 	//
 	public MyShipScript(String string, int _hp,double _speed) {
@@ -54,7 +55,7 @@ public class MyShipScript extends Sprite {
 
 
 		}
-		
+
 	}
 	public void hit() {
 
