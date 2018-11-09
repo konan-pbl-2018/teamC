@@ -10,25 +10,29 @@ public class MyBullet extends Sprite  {
 	Universe uni;
 	public boolean onDisplay=false;
 	public float speed;
+	public float angle;
+	public boolean shipToEnemy;
 	ArrayList<MyBullet> myBulletList;
 
-	public MyBullet(Universe u,String imageFile,ArrayList<MyBullet> mb,float _s) {
+	public MyBullet(Universe u,String imageFile,ArrayList<MyBullet> mb,float _s,float _angle,boolean ste) {
 		super(imageFile);
 		uni=u;
 		speed=_s;
 		myBulletList=mb;
+		shipToEnemy=ste;
+		angle=_angle;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	public void move(long interval) {
 
-		if(!isInScreen((int)(TemplateShooting2D.RANGE*1.1),TemplateShooting2D.RANGE)) {
+		if(!isInScreen((int)(TemplateShooting2D.RANGE*1.1),(int)(TemplateShooting2D.RANGE*1.1))) {
 			onDisplay=false;
 			uni.displace(this);
 			myBulletList.remove(this);
 		}
 		if(!onDisplay)return;
 		Velocity2D vel=this.getVelocity();
-		vel.set(speed,0);
+		vel.set(speed*Math.cos(angle),speed*Math.sin(angle));
 		setVelocity(vel);
 		super.motion(interval);
 	}

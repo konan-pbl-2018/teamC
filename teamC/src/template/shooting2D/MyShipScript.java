@@ -28,6 +28,7 @@ public class MyShipScript extends Sprite {
 	void move(RWTVirtualController virtualController) {
 		countFrame++;
 		shot(virtualController);
+		collision();
 		//boolean pushShift=RWTVirtualController.;
 		// キー操作による自機のアクション処理
 		// 左
@@ -67,27 +68,26 @@ public class MyShipScript extends Sprite {
 	public void shot(RWTVirtualController virtualController) {
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
 			if (countFrame % 5 == 0) {
-				System.out.println("発射！！");
-				/*
-				for(int i=0;i<myBullet.size();i++) {
-					MyBullet mb=myBullet.get(i);
-X
-					if (mb.onDisplay)
-						continue;
-					else {
-						mb.setPosition(getPosition().getX(),getPosition().getY());
-						mb.onDisplay=true;
-						break;
-					}
-				}
-				*/
-				MyBullet bullet=new MyBullet(universe,"data\\\\sozai\\\\敵の弾切り取り消したやつ.png",myBulletList,20);
+
+
+				MyBullet bullet=new MyBullet(universe,"data\\\\sozai\\\\敵の弾25%.png",myBulletList,50,0,true);
 				universe.place(bullet);
 				bullet.setPosition(getPosition().getX(),getPosition().getY());
 				bullet.onDisplay=true;
 				this.myBulletList.add(bullet);
 
 
+			}
+		}
+	}
+	public void collision() {
+
+		for(int i=0;i<myBulletList.size();i++) {
+			if(checkCollision(myBulletList.get(i))&&!myBulletList.get(i).shipToEnemy) {
+
+				universe.displace(myBulletList.get(i));
+				myBulletList.remove(myBulletList.get(i));
+				System.out.println("弾が衝突した！！");
 			}
 		}
 	}
