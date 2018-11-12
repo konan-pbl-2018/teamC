@@ -34,10 +34,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
 	private IGameState rpgGameState = null;
-//	private IGameState shootingGameState = null;/////////////////////////////////////////ここから下が
-	//変更点です。
-	private int time;
-	private RWTContainer container;///////////////////////////////////////////////////////
+	private RWTContainer container;
 
 	public TemplateShooting2DMultiStates() {
 		super();
@@ -179,7 +176,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	public RWTFrame3D createFrame3D() {
 		// TODO Auto-generated method stub
 		RWTFrame3D f = new RWTFrame3D();
-		f.setSize(800, 800);
+		f.setSize(960, 960);
 		// f.setExtendedState(Frame.MAXIMIZED_BOTH);
 		f.setTitle("Template for Shooting 2DGame");
 		return f;
@@ -187,23 +184,24 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
-		System.out.println("a");
-		time += interval;
-		((ShootingContainer) container).setStartLabelText("" + time);
-
-		if (virtualController.isKeyDown(Event.ENTER)) {
-			ending();
-		}
-
 
 		//ゲームを始めてからの経過時間のカウント
 		PlayTimeCount += interval;
-		//		if(PlayTimeCount / 1000 >= 10) {
-		//			System.out.println("十秒");
+
+		//タイムとライフの表示
+		((ShootingContainer) container).setStartLabelText("" + (180 - PlayTimeCount / 1000));
+
+		//RPGへの移行
+		//		if(PlayTimeCount / 1000 >= 180){
+		//			rpg();
 		//		}
 
 		//ゲーム画面の背景を時間経過によって動かす
 		background.display();
+
+		if (virtualController.isKeyDown(Event.ENTER)) {
+			ending();
+		}
 
 		//自機
 		myShipScript.move(virtualController);

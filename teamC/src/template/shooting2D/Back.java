@@ -53,7 +53,7 @@ public class Back extends Sprite {
 		transAttributes.setDstBlendFunction(TransparencyAttributes.BLEND_SRC_ALPHA);
 		appearance.setTransparencyAttributes(transAttributes);
 
-		box = new Box(2.0f * scale, 1.0f * scale, 0.0f, Box.GENERATE_TEXTURE_COORDS | Box.GENERATE_NORMALS, appearance);///////////
+		box = new Box(1.8f * scale, 1.0f * scale, 0.0f, Box.GENERATE_TEXTURE_COORDS | Box.GENERATE_NORMALS, appearance);///////////
 		transformGroup.addChild(box);
 		transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
@@ -62,7 +62,7 @@ public class Back extends Sprite {
 		velocity.set(0.0, 0.0);
 		setCollisionRadius(1.0);	}
 	public void display() {
-		setPosition(15.0 - ((double)TemplateShooting2D.PlayTimeCount)/4000.0 , 0);
+		setPosition(10.0 - ((double)TemplateShooting2DMultiStates.PlayTimeCount)/4000.0 , 0);
 	}
 
 }

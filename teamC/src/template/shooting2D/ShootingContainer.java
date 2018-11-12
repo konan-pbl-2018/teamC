@@ -31,8 +31,8 @@ public class ShootingContainer extends RWTContainer {
 
 //		RWTLabel startLabel = new RWTLabel();
 		startLabel.setString("*****");
-		startLabel.setRelativePosition(0.3f, 0.1f);
-		Font f = new Font("", Font.PLAIN, 60);
+		startLabel.setRelativePosition(0.8f, 0.1f);
+		Font f = new Font("", Font.PLAIN, 40);
 		startLabel.setFont(f);
 		addWidget(startLabel);
 
@@ -42,7 +42,7 @@ public class ShootingContainer extends RWTContainer {
 	@Override
 	public void keyPressed(RWTVirtualKey key) {
 		if (key.getVirtualKey() == RWTVirtualController.BUTTON_A) {
-			game.play();
+
 		}
 	}
 
