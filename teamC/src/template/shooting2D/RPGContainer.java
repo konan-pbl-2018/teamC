@@ -20,6 +20,8 @@ public class RPGContainer extends RWTContainer {
 		this.game = game;
 	}
 
+
+
 	int Turn = 6;
 	int ending = 0;//エンディングのフラグ
 	int angry = 0;//怒り状態のフラグ
@@ -28,11 +30,11 @@ public class RPGContainer extends RWTContainer {
 	int BossHp = 2500;
 	int BossMaxHp = BossHp;
 	int BossAttack = 70;
-	int Zanki = 5;//残機
-	int MyHp = 400;//ライフ
+	public static int Zanki = 5;//残機
+	public static int MyHp = 400;//ライフ
 	int MaxMyHp = MyHp;
-	int MyAttack = 50;//攻撃力
-	int Item = 5;//回復回数
+	public static int MyAttack = 50;//攻撃力
+	public static int Item = 5;//回復回数
 
 	Sound3D battle = BGM3D.registerBGM("data\\sozai\\BGM\\battle.wav");
 	Sound3D muon = BGM3D.registerBGM("data\\sozai\\BGM\\muon.wav");
