@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
+import framework.audio.BGM3D;
+import framework.audio.Sound3D;
 import framework.game2D.Ground2D;
 import framework.gameMain.IGameState;
 import framework.gameMain.SimpleShootingGame;
@@ -37,6 +39,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState rpgGameState = null;
 	private IGameState gameoverGameState = null;
 	private RWTContainer container;
+	private Sound3D shootingBGM = BGM3D.registerBGM("data\\BGM\\shooting.wav");
 
 	public TemplateShooting2DMultiStates() {
 		super();
@@ -148,6 +151,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	@Override
 	public void init(Universe universe) {
+		BGM3D.playBGM(shootingBGM);
 
 		// /////////////////////////////////////////////////////////
 		//
@@ -199,9 +203,9 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		((ShootingContainer) container).setStartLabelText("" + (180 - PlayTimeCount / 1000));
 
 		//RPG‚Ö‚ÌˆÚs
-				if(PlayTimeCount / 1000 >= 60){
-					rpg();
-				}
+		if(PlayTimeCount / 1000 >= 60){
+			rpg();
+		}
 
 
 		switch (enemySetFrame) {
@@ -266,6 +270,9 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		if (virtualController.isKeyDown(Event.ENTER)) {
 			ending();
+		}
+		if(RPGContainer.Zanki<0) {
+			go();
 		}
 
 		//Ž©‹@
