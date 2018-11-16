@@ -1,5 +1,6 @@
 package template.shooting2D;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
@@ -8,17 +9,18 @@ import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
 
-public class EndingContainer extends RWTContainer {
+public class GaneOverContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
 
-	public EndingContainer(TemplateShooting2DMultiStates game) {
+	public GaneOverContainer(TemplateShooting2DMultiStates game) {
 		this.game = game;
 	}
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
 		RWTLabel startLabel = new RWTLabel();
-		startLabel.setString("Clear!!!");
+		startLabel.setColor(Color.RED);
+		startLabel.setString("Game Over");
 		startLabel.setRelativePosition(0.3f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 60);
 		startLabel.setFont(f);
