@@ -9,10 +9,10 @@ import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
 
-public class GaneOverContainer extends RWTContainer {
+public class GameOverContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
 
-	public GaneOverContainer(TemplateShooting2DMultiStates game) {
+	public GameOverContainer(TemplateShooting2DMultiStates game) {
 		this.game = game;
 	}
 
