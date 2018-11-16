@@ -17,6 +17,8 @@ public class MyShipScript extends Sprite {
 	public static int maxHPValue;//体力の最大値
 	public static int healItemNumber;//回復アイテム数
 
+	public int switchBullet;
+	public int maxswitch=1;
 	//インスタンス生成時に初期値を設定
 	ArrayList<MyBullet> myBulletList;
 	Universe universe;
@@ -40,13 +42,13 @@ public class MyShipScript extends Sprite {
 		speed = _speed;
 		myBulletList = mb;
 		universe = u;
+		 switchBullet=0;
 	}
 
 	//自機を操作するスクリプト
 	void move(RWTVirtualController virtualController) {
 		countFrame++;
-		if (RPGContainer.Zanki < 0)
-			universe.displace(this);
+		if (RPGContainer.Zanki < 0)universe.displace(this);
 		shot(virtualController);
 		collision();
 		//boolean pushShift=RWTVirtualController.;
@@ -86,6 +88,10 @@ public class MyShipScript extends Sprite {
 	}
 
 	public void shot(RWTVirtualController virtualController) {
+		if (countFrame % 30 == 0||virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)) {
+			//switchBullet++;
+			if(switchBullet>maxswitch)switchBullet=0;
+		}
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
 			if (countFrame % 5 == 0) {
 
@@ -96,9 +102,11 @@ public class MyShipScript extends Sprite {
 				this.myBulletList.add(bullet);
 
 			}
+			switch(switchBullet) {
+			case 0:
 			if (countFrame % 30 == 0) {
 
-				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\敵の弾25%.png", myBulletList, -30, 45, true);
+				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\敵の弾25%.png", myBulletList, -50, 60, true);
 				universe.place(bullet);
 				bullet.setPosition(getPosition().getX(), getPosition().getY());
 				bullet.onDisplay = true;
@@ -107,12 +115,26 @@ public class MyShipScript extends Sprite {
 			}
 			if (countFrame % 30 == 0) {
 
-				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\敵の弾25%.png", myBulletList, -30, -45, true);
+				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\敵の弾25%.png", myBulletList, -50, -60, true);
 				universe.place(bullet);
 				bullet.setPosition(getPosition().getX(), getPosition().getY());
 				bullet.onDisplay = true;
 				this.myBulletList.add(bullet);
 
+			}
+			break;
+			case 1:
+				if (countFrame % 3 == 0) {
+
+					MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\敵の弾25%.png", myBulletList, -50, countFrame, true);
+					universe.place(bullet);
+					bullet.setPosition(getPosition().getX(), getPosition().getY());
+					bullet.onDisplay = true;
+					this.myBulletList.add(bullet);
+
+				}
+
+				break;
 			}
 		}
 	}

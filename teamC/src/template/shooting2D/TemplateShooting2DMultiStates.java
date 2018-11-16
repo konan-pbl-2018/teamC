@@ -197,7 +197,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		((ShootingContainer) container).setStartLabelText("" + (180 - PlayTimeCount / 1000));
 
 		//RPG‚Ö‚ÌˆÚs
-				if(PlayTimeCount / 1000 >= 180){
+				if(PlayTimeCount / 1000 >= 60){
 					rpg();
 				}
 
@@ -215,7 +215,48 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		case 10*60:
 			setEnemy(10, 0, 2, 10,-5,30, "HP");
 			break;
+		case 15*60:
 
+			setEnemy(16, 0, 4, 5,-5,45, "Attack");
+			break;
+		case 20*60:
+
+			setEnemy(16, -10, 4, 5,-5,45, "Life");
+			setEnemy(16, 10, 4, 5,-5,45, "Attack");
+			break;
+		case 30*60:
+
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 4, 5,-6*(i/n),45, "HP");
+			break;
+		case 31*60:
+
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, -10, 4, 5,-6*(i/n),45, "Attack");
+			break;
+		case 35*60:
+
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 2, 5,-6*(i/n),i*15, "Attack");
+			break;
+		case 40*60:
+
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 5, 3, 5,-10*(i/n),i*15, "HP");
+			break;
+		case 45*60:
+
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 50, 2, 5,-7,i*-15, "Attack");
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 0, 2, 5,-7,i*-15, "Attack");
+			break;
+		case 47*60:
+			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 1, 5,-10*(i/n),i*-15, "Attack");
+
+			break;
+		case 50*60:
+			for(double i=1,n=10;i<=n;i++)setEnemy(16, 15, 1, 5,-10,45+i*-15, "Attack");
+
+			break;
+		case 55*60:
+			for(double i=1,n=10;i<=n;i++)setEnemy(16, 0, 1, 5,-10,45+i*-15, "Attack");
+			for(double i=1,n=10;i<=n;i++)setEnemy(16, 2, 1, 5,-10,45+i*-15, "Attack");
+			break;
 		}
 
 		//ƒQ[ƒ€‰æ–Ê‚Ì”wŒi‚ðŽžŠÔŒo‰ß‚É‚æ‚Á‚Ä“®‚©‚·
