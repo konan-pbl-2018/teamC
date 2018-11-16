@@ -197,18 +197,25 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		((ShootingContainer) container).setStartLabelText("" + (180 - PlayTimeCount / 1000));
 
 		//RPG‚Ö‚ÌˆÚs
-		//		if(PlayTimeCount / 1000 >= 180){
-		//			rpg();
-		//		}
+				if(PlayTimeCount / 1000 >= 180){
+					rpg();
+				}
 
 
 		switch (enemySetFrame) {
-		case 10:
+		case 1*60:
 			setEnemy(5, 0, 2, 10,-5,0, "Attack");
 			break;
-		case 30:
-			setEnemy(10, 0, 2, 10,-5,0, "Attack");
+		case 3*60:
+			setEnemy(10, 0, 2, 1,-5,0, "Attack");
 			break;
+		case 6*60:
+			for(int i=0;i<5;i++)setEnemy(16, 10-i*2, 2, 1,-5,0, "Attack");
+			break;
+		case 10*60:
+			setEnemy(10, 0, 2, 10,-5,30, "HP");
+			break;
+
 		}
 
 		//ƒQ[ƒ€‰æ–Ê‚Ì”wŒi‚ðŽžŠÔŒo‰ß‚É‚æ‚Á‚Ä“®‚©‚·

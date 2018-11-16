@@ -20,30 +20,33 @@ public class MyShipScript extends Sprite {
 	//ƒCƒ“ƒXƒ^ƒ“ƒX¶¬‚É‰Šú’l‚ğİ’è
 	ArrayList<MyBullet> myBulletList;
 	Universe universe;
+
 	//
-	public MyShipScript(Universe u,String string, ArrayList<MyBullet> mb, int _hp, double _speed) {
+	public MyShipScript(Universe u, String string, ArrayList<MyBullet> mb, int _hp, double _speed) {
 		super(string);
 		super.setCollisionRadius(0.5);
 
-		lifeNumber=0;
-		attackNumber=0;
-		maxHPValue=0;
-		healItemNumber=0;
+		lifeNumber = 0;
+		attackNumber = 0;
+		maxHPValue = 0;
+		healItemNumber = 0;
 
-		RPGContainer.MyAttack=50;
-		RPGContainer.Item=5;
-		RPGContainer.MyHp=400;
-		RPGContainer.Zanki=5;
+		RPGContainer.MyAttack = 50;
+		RPGContainer.Item = 5;
+		RPGContainer.MyHp = 400;
+		RPGContainer.Zanki = 5;
 
 		myShipHP = _hp;
 		speed = _speed;
 		myBulletList = mb;
-		universe =u;
+		universe = u;
 	}
 
 	//©‹@‚ğ‘€ì‚·‚éƒXƒNƒŠƒvƒg
 	void move(RWTVirtualController virtualController) {
 		countFrame++;
+		if (RPGContainer.Zanki < 0)
+			universe.displace(this);
 		shot(virtualController);
 		collision();
 		//boolean pushShift=RWTVirtualController.;
@@ -86,21 +89,38 @@ public class MyShipScript extends Sprite {
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
 			if (countFrame % 5 == 0) {
 
-
-				MyBullet bullet=new MyBullet(universe,"data\\\\sozai\\\\“G‚Ì’e25%.png",myBulletList,50,0,true);
+				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\“G‚Ì’e25%.png", myBulletList, 50, 0, true);
 				universe.place(bullet);
-				bullet.setPosition(getPosition().getX(),getPosition().getY());
-				bullet.onDisplay=true;
+				bullet.setPosition(getPosition().getX(), getPosition().getY());
+				bullet.onDisplay = true;
 				this.myBulletList.add(bullet);
 
+			}
+			if (countFrame % 30 == 0) {
+
+				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\“G‚Ì’e25%.png", myBulletList, -30, 45, true);
+				universe.place(bullet);
+				bullet.setPosition(getPosition().getX(), getPosition().getY());
+				bullet.onDisplay = true;
+				this.myBulletList.add(bullet);
+
+			}
+			if (countFrame % 30 == 0) {
+
+				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\“G‚Ì’e25%.png", myBulletList, -30, -45, true);
+				universe.place(bullet);
+				bullet.setPosition(getPosition().getX(), getPosition().getY());
+				bullet.onDisplay = true;
+				this.myBulletList.add(bullet);
 
 			}
 		}
 	}
+
 	public void collision() {
 
-		for(int i=0;i<myBulletList.size();i++) {
-			if(checkCollision(myBulletList.get(i))&&!myBulletList.get(i).shipToEnemy) {
+		for (int i = 0; i < myBulletList.size(); i++) {
+			if (checkCollision(myBulletList.get(i)) && !myBulletList.get(i).shipToEnemy) {
 
 				universe.displace(myBulletList.get(i));
 				myBulletList.remove(myBulletList.get(i));
