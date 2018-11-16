@@ -30,7 +30,7 @@ public class StartContainer extends RWTContainer {
 		addWidget(backgroud);
 
 		RWTLabel titleLabel = new RWTLabel();
-		titleLabel.setString("RPGSHOOTING");
+		titleLabel.setString("RPG Shooting");
 		titleLabel.setRelativePosition(0.05f, 0.4f);
 		Font titlefont = new Font("", Font.PLAIN, 60);
 		titleLabel.setColor(Color.WHITE);

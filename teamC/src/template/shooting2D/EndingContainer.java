@@ -1,5 +1,6 @@
 package template.shooting2D;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
@@ -18,6 +19,7 @@ public class EndingContainer extends RWTContainer {
 	@Override
 	public void build(GraphicsConfiguration gc) {
 		RWTLabel startLabel = new RWTLabel();
+		startLabel.setColor(Color.WHITE);
 		startLabel.setString("Clear!!!");
 		startLabel.setRelativePosition(0.3f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 60);
