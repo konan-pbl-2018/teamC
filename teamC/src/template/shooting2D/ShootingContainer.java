@@ -31,7 +31,7 @@ public class ShootingContainer extends RWTContainer {
 
 //		RWTLabel startLabel = new RWTLabel();
 		startLabel.setString("*****");
-		startLabel.setRelativePosition(0.8f, 0.1f);
+		startLabel.setRelativePosition(0.8f, 0.08f);
 		Font f = new Font("", Font.PLAIN, 40);
 		startLabel.setFont(f);
 		addWidget(startLabel);
