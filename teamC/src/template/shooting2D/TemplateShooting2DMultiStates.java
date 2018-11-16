@@ -39,7 +39,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState rpgGameState = null;
 	private IGameState gameoverGameState = null;
 	private RWTContainer container;
-	private Sound3D shootingBGM = BGM3D.registerBGM("data\\BGM\\shooting.wav");
+	private Sound3D shootingBGM = BGM3D.registerBGM("data\\sozai\\BGM\\shooting.wav");
 
 	public TemplateShooting2DMultiStates() {
 		super();
