@@ -25,7 +25,7 @@ public class RPGContainer extends RWTContainer {
 	int angry = 0;//怒り状態のフラグ
 	int shibou = 0;//死亡のフラグ
 	int kousan = 0;
-	int BossHp = 3000;
+	int BossHp = 2500;
 	int BossMaxHp = BossHp;
 	int BossAttack = 70;
 	int Zanki = 5;//残機
@@ -56,9 +56,13 @@ public class RPGContainer extends RWTContainer {
 		BGM3D.playBGM(battle);
 		monstergrow.play();
 
-		RWTImage BackImage = new RWTImage("data\\sozai\\blackback.png");
-		BackImage.setRelativePosition(0f, 0f);
+		RWTImage BackImage = new RWTImage("data\\sozai\\RPGBack.png");
+		BackImage.setRelativePosition(-1f, 0f);
 		addWidget(BackImage);
+
+		RWTImage BackImage2 = new RWTImage("data\\sozai\\blackback.png");
+		BackImage2.setRelativePosition(0.02f, 0.7f);
+		addWidget(BackImage2);
 		repaint();
 
 		RWTLabel AttackLabel = new RWTLabel();
@@ -185,7 +189,7 @@ public class RPGContainer extends RWTContainer {
 			if (Item > 0) {
 				Item -= 1;
 				Turn = 0;
-				MyHp += 250;
+				MyHp += 300;
 
 				if (MyHp > MaxMyHp) {
 					MyHp = MaxMyHp;
