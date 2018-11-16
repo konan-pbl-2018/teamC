@@ -27,7 +27,7 @@ public class RPGContainer extends RWTContainer {
 	int angry = 0;//怒り状態のフラグ
 	int shibou = 0;//死亡のフラグ
 	int kousan = 0;
-	int BossHp = 2500;
+	int BossHp = 5000;
 	int BossMaxHp = BossHp;
 	int BossAttack = 70;
 	public static int Zanki = 5;//残機
@@ -37,6 +37,7 @@ public class RPGContainer extends RWTContainer {
 	public static int Item = 5;//回復回数
 
 	Sound3D battle = BGM3D.registerBGM("data\\sozai\\BGM\\battle.wav");
+	Sound3D fate = BGM3D.registerBGM("data\\sozai\\BGM\\fate2.wav");
 	Sound3D muon = BGM3D.registerBGM("data\\sozai\\BGM\\muon.wav");
 	Sound3D attack = new Sound3D("data\\sozai\\BGM\\punch-high1.wav");
 	Sound3D submachinegun = new Sound3D("data\\sozai\\BGM\\submachinegun1.wav");
@@ -166,7 +167,7 @@ public class RPGContainer extends RWTContainer {
 
 		if (kousan == 1) {//降参したときエンディングに飛ばす
 			tin.play();
-			game.ending();
+			game.go();
 		}
 
 		// 上　戦う
@@ -231,8 +232,8 @@ public class RPGContainer extends RWTContainer {
 			game.ending();
 		}
 		if (Zanki <= -1 && shibou == 1) {//負けた場合
-			tin.play();
-			game.ending();
+			fate.play();
+			game.go();
 		}
 
 		//敵の攻撃
