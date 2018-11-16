@@ -3,6 +3,7 @@ package template.shooting2D;
 import java.util.ArrayList;
 
 import framework.RWT.RWTVirtualController;
+import framework.audio.Sound3D;
 import framework.game2D.Sprite;
 import framework.model3D.Universe;
 
@@ -93,6 +94,8 @@ public class MyShipScript extends Sprite {
 			if(switchBullet>maxswitch)switchBullet=0;
 		}
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
+			Sound3D sound = new Sound3D("data\\sozai\\BGM\\attack.wav");
+			sound.play();
 			if (countFrame % 5 == 0) {
 
 				MyBullet bullet = new MyBullet(universe, "data\\\\sozai\\\\“G‚Ì’e25%.png", myBulletList, 50, 0, true);
