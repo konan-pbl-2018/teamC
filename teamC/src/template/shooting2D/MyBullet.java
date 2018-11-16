@@ -30,7 +30,7 @@ public class MyBullet extends Sprite  {
 			uni.displace(this);
 			myBulletList.remove(this);
 		}
-		if(!onDisplay)return;
+		if(!onDisplay)return;//‰æ–Ê‚É‘¶İ‚µ‚È‚¯‚ê‚Î‚±‚±‚Åˆ—‚ğI‚¦‚é
 		Velocity2D vel=this.getVelocity();
 		vel.set(speed*Math.cos(angle),speed*Math.sin(angle));
 		setVelocity(vel);
