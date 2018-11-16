@@ -18,34 +18,39 @@ public class EnemyScript extends Sprite {
 
 	//進む方向(角度)
 	public double angle;
+	private boolean isDestroy;
 
 	ArrayList<MyBullet> myBulletList;
 
 	Universe universe;
 
 	MyShipScript myShipScript;
+	String itemName;
 	int countFrame = 0;
 	int rangeWidth = TemplateShooting2D.RANGE;
 	int rangeHeight = TemplateShooting2D.RANGE;
 
 	//敵のインスタンスを生成する際に、ステータスを設定する
 	//プレイヤー,敵の画像,敵の体力,速度,角度
-	public EnemyScript(Universe u, MyShipScript ms, ArrayList<MyBullet> mb, String imageFile, int _enemyHP, double _x,
-			double _y, double _speed, double _angle) {
+	public EnemyScript(Universe u, MyShipScript ms, ArrayList<MyBullet> mb, String imageFile, int _enemyHP,  double _speed, double _angle,String itemname) {
 		super(imageFile);
 		enemyHP = _enemyHP;
-		setPosition(_x, _y);
+
 		enemySpeed = _speed;
 		angle = _angle;
 		myShipScript = ms;
 		universe = u;
 		myBulletList = mb;
+		itemName=itemname;
+		isDestroy=false;
 	}
 
 	public void motion(long interval) {
+		if(isDestroy)return;
+		double rad=angle/180*Math.PI;
 		collision();
 		Velocity2D vel = this.getVelocity();
-		vel.set(Math.cos(angle) * enemySpeed, Math.sin(angle) * enemySpeed);
+		vel.set(Math.cos(rad) * enemySpeed, Math.sin(rad) * enemySpeed);
 		setVelocity(vel);
 		super.motion(interval);
 		countFrame++;
@@ -66,9 +71,15 @@ public class EnemyScript extends Sprite {
 			}
 		}
 		if (enemyHP <= 0) {
+
+			TemplateShooting2DMultiStates.EnemyShootingDownNumber++;
+			Item item=new Item(universe,myShipScript,itemName);
+			TemplateShooting2DMultiStates.itemList.add(item);
+			item.setPosition(getPosition().getX(), getPosition().getY());
+			universe.place(item);
 			universe.displace(this);
+			isDestroy=true;
 			setPosition(0, -100);
-			TemplateShooting2D.EnemyShootingDownNumber++;
 		}
 	}
 

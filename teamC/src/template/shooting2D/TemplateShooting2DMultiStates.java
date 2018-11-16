@@ -13,15 +13,16 @@ import framework.model3D.Universe;
 
 public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
-	private ArrayList<MyBullet> myBulletList = new ArrayList<MyBullet>();
+	ArrayList<MyBullet> myBulletList = new ArrayList<MyBullet>();
 	private MyShipScript myShipScript;
 	private EnemyScript enemyScript;
 
-
-//
+	public static ArrayList<EnemyScript> enemyList = new ArrayList<EnemyScript>();
+	public static ArrayList<Item> itemList = new ArrayList<Item>();
+	private Item item;
 	private Ground2D stage;
 
-
+	private int enemySetFrame = 0;
 	public static int EnemyShootingDownNumber = 0;
 	public static long PlayTimeCount = 0;
 
@@ -89,28 +90,28 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
 		};
-//		shootingGameState = new IGameState() {
-//			private int time;
-//
-//			@Override
-//			public void init(RWTFrame3D frame) {
-//				TemplateShooting2DMultiStates.this.frame = frame;
-//				container = new ShootingContainer(TemplateShooting2DMultiStates.this);
-//				changeContainer(container);
-//			}
-//
-//			@Override
-//			public boolean useTimer() {
-//				return true;
-//			}
-//
-//			@Override
-//			public void update(RWTVirtualController virtualController, long interval) {
-//				System.out.println("a");
-//				time += interval;
-//				((ShootingContainer) container).setStartLabelText("" + time);
-//			}
-//		};
+		//		shootingGameState = new IGameState() {
+		//			private int time;
+		//
+		//			@Override
+		//			public void init(RWTFrame3D frame) {
+		//				TemplateShooting2DMultiStates.this.frame = frame;
+		//				container = new ShootingContainer(TemplateShooting2DMultiStates.this);
+		//				changeContainer(container);
+		//			}
+		//
+		//			@Override
+		//			public boolean useTimer() {
+		//				return true;
+		//			}
+		//
+		//			@Override
+		//			public void update(RWTVirtualController virtualController, long interval) {
+		//				System.out.println("a");
+		//				time += interval;
+		//				((ShootingContainer) container).setStartLabelText("" + time);
+		//			}
+		//		};
 		setCurrentGameState(initialGameState);
 	}
 
@@ -152,14 +153,18 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		//
 		// ////////////////////////////////////////////////////////
 
-
 		myShipScript = new MyShipScript(universe, "data\\\\sozai\\\\自機の大きさ25%.png", myBulletList, 5, 10);
 		myShipScript.setPosition(0.0, 0.0);
 		universe.place(myShipScript);
 
-		enemyScript = new EnemyScript(universe, myShipScript,myBulletList, "data\\images\\Enemy.gif", 10, 0, 10, -5, 0);
-		universe.place(enemyScript);
+		enemyScript = new EnemyScript(universe, myShipScript, myBulletList, "data\\images\\Enemy.gif", 10, -1, 0,
+				"Attack");
+		enemyScript.setPosition(10, 0);
+		//universe.place(enemyScript);
 
+		item = new Item(universe, myShipScript, "Attack");
+		item.setPosition(4.0, 0.0);
+		universe.place(item);
 
 		stage = new Ground2D(null, null, windowSizeWidth,
 				windowSizeHeight);
@@ -195,6 +200,14 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		//		if(PlayTimeCount / 1000 >= 180){
 		//			rpg();
 		//		}
+		switch (enemySetFrame) {
+		case 10:
+			setEnemy(5, 0, 2, 10,-5,0, "Attack");
+			break;
+		case 30:
+			setEnemy(5, 0, 2, 10,-5,0, "HP");
+			break;
+		}
 
 		//ゲーム画面の背景を時間経過によって動かす
 		background.display();
@@ -205,18 +218,38 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		//自機
 		myShipScript.move(virtualController);
-
+		item.move();
 
 		//敵
-		enemyScript.motion(interval);
-		enemyScript.oneShot(30, 10);
-		enemyScript.everyDirection(31, 10, 5);
-
-		//弾
-		for(int i=0;i<myBulletList.size();i++) {
-			myBulletList.get(i).move(interval);
+		for (int i = 0; i < enemyList.size(); i++) {
+			enemyList.get(i).motion(interval);
 		}
 
+		//弾
+		for (int i = 0; i < myBulletList.size(); i++) {
+			myBulletList.get(i).move(interval);
+		}
+		//アイテム
+		for (int i = 0; i < itemList.size(); i++) {
+			itemList.get(i).move();
+		}
+		enemySetFrame++;
+
+	}
+	/**
+	 * 敵を置く関数
+	 * x座標,y座標,番号(1～4),体力,スピード(負の値で左に進む)，角度(度数法),落とすアイテム
+	 * "Attack" "HP" "Life" "Heal"
+	 */
+	void setEnemy(double x, double y,int enemyNum, int _enemyHP, double _speed, double _angle, String itemname) {
+		EnemyScript enemy;
+		String imageFile;
+		imageFile="data\\sozai\\enemy"+enemyNum+".png";
+		System.out.println(imageFile);
+		enemy = new EnemyScript(universe, myShipScript, myBulletList,imageFile, _enemyHP, _speed, _angle, itemname);
+		enemy.setPosition(x, y);
+		universe.place(enemy);
+		enemyList.add(enemy);
 
 	}
 

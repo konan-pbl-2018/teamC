@@ -42,7 +42,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		myShipScript.setPosition(0.0, 0.0);
 		universe.place(myShipScript);
 
-		enemyScript = new EnemyScript(universe, myShipScript,myBulletList, "data\\images\\Enemy.gif", 10, 0, 10, -5, 0);
+		//enemyScript = new EnemyScript(universe, myShipScript,myBulletList, "data\\images\\Enemy.gif", 10, 0, 10, -5, 0);
 		universe.place(enemyScript);
 
 
@@ -84,14 +84,14 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 
 		//“G
-		enemyScript.motion(interval);
-		enemyScript.oneShot(30, 10);
-		enemyScript.everyDirection(31, 10, 6);
+		//enemyScript.motion(interval);
+		//enemyScript.oneShot(30, 10);
+		//enemyScript.everyDirection(31, 10, 6);
 
 		//’e
-		for(int i=0;i<myBulletList.size();i++) {
-			myBulletList.get(i).move(interval);
-		}
+		//for(int i=0;i<myBulletList.size();i++) {
+		//	myBulletList.get(i).move(interval);
+		//}
 
 
 	}

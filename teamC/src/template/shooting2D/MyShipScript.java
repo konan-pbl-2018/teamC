@@ -11,6 +11,12 @@ public class MyShipScript extends Sprite {
 	public double speed;
 	public int playerShift = 0;//プレイヤー0かプレイヤー１かを指定
 	int countFrame = 0;//1フレームごとに増加する
+
+	public static int lifeNumber;
+	public static int attackNumber;
+	public static int maxHPValue;
+	public static int healItemNumber;
+
 	//インスタンス生成時に初期値を設定
 	ArrayList<MyBullet> myBulletList;
 	Universe universe;
@@ -18,6 +24,12 @@ public class MyShipScript extends Sprite {
 	public MyShipScript(Universe u,String string, ArrayList<MyBullet> mb, int _hp, double _speed) {
 		super(string);
 		super.setCollisionRadius(0.5);
+
+		lifeNumber=0;
+		attackNumber=0;
+		maxHPValue=0;
+		healItemNumber=0;
+
 		myShipHP = _hp;
 		speed = _speed;
 		myBulletList = mb;
