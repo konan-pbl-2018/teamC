@@ -25,7 +25,7 @@ public class StartContainer extends RWTContainer {
 		BGM3D.playBGM(startBGM);
 
 		RWTImage backgroud = new RWTImage("data\\sozai\\haikeidesu.png");
-		backgroud.setRelativePosition(0.0f, 0.0f);//1500,-0.3
+		backgroud.setRelativePosition(0.0f, 0.0f);
 		backgroud.setSize(960, 960);
 		addWidget(backgroud);
 
