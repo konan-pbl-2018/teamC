@@ -24,14 +24,15 @@ public class RPGContainer extends RWTContainer {
 	int ending = 0;//エンディングのフラグ
 	int angry = 0;//怒り状態のフラグ
 	int shibou = 0;//死亡のフラグ
-	int BossHp = 2000;
+	int kousan = 0;
+	int BossHp = 2500;
 	int BossMaxHp = BossHp;
 	int BossAttack = 70;
-	int MyHp = 500;
+	int Zanki = 5;//残機
+	int MyHp = 400;//ライフ
 	int MaxMyHp = MyHp;
-	int MyAttack = 50;
-	int Zanki = 5;
-	int Item = 5;
+	int MyAttack = 50;//攻撃力
+	int Item = 5;//回復回数
 
 	Sound3D battle = BGM3D.registerBGM("data\\sozai\\BGM\\battle.wav");
 	Sound3D muon = BGM3D.registerBGM("data\\sozai\\BGM\\muon.wav");
@@ -43,11 +44,11 @@ public class RPGContainer extends RWTContainer {
 	Sound3D tin = new Sound3D("data\\sozai\\BGM\\tin1.wav");
 	Sound3D trumpet = new Sound3D("data\\sozai\\BGM\\trumpet1.wav");
 
+	RWTLabel KaihukuLabel = new RWTLabel();
 	RWTLabel ZankiLabel = new RWTLabel();
 	RWTLabel MyHpLabel = new RWTLabel();
 	RWTLabel QLabel = new RWTLabel();
 	RWTLabel BossHpLabel = new RWTLabel();
-
 
 	@Override
 	public void build(GraphicsConfiguration gc) {//画面表示
@@ -55,9 +56,13 @@ public class RPGContainer extends RWTContainer {
 		BGM3D.playBGM(battle);
 		monstergrow.play();
 
-		RWTImage BackImage = new RWTImage("data\\sozai\\blackback.png");
-		BackImage.setRelativePosition(0f, 0f);
+		RWTImage BackImage = new RWTImage("data\\sozai\\RPGBack.png");
+		BackImage.setRelativePosition(-1f, 0f);
 		addWidget(BackImage);
+
+		RWTImage BackImage2 = new RWTImage("data\\sozai\\blackback.png");
+		BackImage2.setRelativePosition(0.02f, 0.7f);
+		addWidget(BackImage2);
 		repaint();
 
 		RWTLabel AttackLabel = new RWTLabel();
@@ -68,7 +73,6 @@ public class RPGContainer extends RWTContainer {
 		AttackLabel.setFont(f1);
 		addWidget(AttackLabel);
 
-		RWTLabel KaihukuLabel = new RWTLabel();
 		KaihukuLabel.setString("D:回復 × " + Item);
 		KaihukuLabel.setRelativePosition(0.35f, 0.85f);
 		KaihukuLabel.setColor(Color.WHITE);
@@ -89,13 +93,11 @@ public class RPGContainer extends RWTContainer {
 		EscapeLabel.setFont(f1);
 		addWidget(EscapeLabel);
 
-
 		ZankiLabel.setString("残機 × " + Zanki);
 		ZankiLabel.setRelativePosition(0.7f, 0.95f);
 		ZankiLabel.setColor(Color.WHITE);
 		ZankiLabel.setFont(f1);
 		addWidget(ZankiLabel);
-
 
 		MyHpLabel.setString("HP: " + MyHp + "/" + MaxMyHp);
 		MyHpLabel.setRelativePosition(0.1f, 0.65f);
@@ -110,7 +112,6 @@ public class RPGContainer extends RWTContainer {
 		BossHpLabel.setColor(Color.WHITE);
 		BossHpLabel.setFont(f2);
 		addWidget(BossHpLabel);
-
 
 		QLabel.setString("敵のボスがあらわれた");
 		QLabel.setRelativePosition(0.05f, 0.76f);
@@ -144,116 +145,139 @@ public class RPGContainer extends RWTContainer {
 		addWidget(line5);
 
 		RWTImage MyImage = new RWTImage("data\\sozai\\自機最終です.png");
-		MyImage.setRelativePosition(0f, 0.3f);
+		MyImage.setRelativePosition(0f, 0.36f);
 		addWidget(MyImage);
 
 		RWTImage BossImage = new RWTImage("data\\images\\boss.png");
-		BossImage.setRelativePosition(0.57f, 0.05f);
+		BossImage.setRelativePosition(0.65f, 0.05f);
 		addWidget(BossImage);
 
 		repaint();
 
 	}
 
-	public  void update() {
-		System.out.println("1");
-		repaint();
+	public void update() {
 	}
 
 	@Override
 	public void keyPressed(RWTVirtualKey key) {
 
+		if (kousan == 1) {//降参したときエンディングに飛ばす
+			tin.play();
+			game.ending();
+		}
+
 		// 上　戦う
-		if (key.getVirtualKey() == RWTVirtualController.UP && Turn ==0 && ending ==0) {
+		if (key.getVirtualKey() == RWTVirtualController.UP && Turn == 0 && ending == 0) {
 			repaint();
 			BossHp -= MyAttack;
 			BossHpLabel.setString("BossHP: " + BossHp + "/" + BossMaxHp);
 			QLabel.setString("敵に　" + MyAttack + "　の　ダメージ！");
 			submachinegun.play();
-
-
 			System.out.println(BossHp);
 		}
 
 		// 下　あきらめる
-		if (key.getVirtualKey() == RWTVirtualController.DOWN && Turn ==0 && ending ==0) {
+		if (key.getVirtualKey() == RWTVirtualController.DOWN && Turn == 0 && ending == 0) {
 			BGM3D.playBGM(muon);
-			game.ending();
+			QLabel.setString("あきらめた");
+			kousan = 1;
 		}
 
 		// 右　回復
-		if (key.getVirtualKey() == RWTVirtualController.RIGHT && Turn ==0 && ending ==0) {
-			Item -= 1;
-			Turn = 0;
-			MyHp += 250;
-			if (MyHp > 500) {
-				MyHp = 500;
+		if (key.getVirtualKey() == RWTVirtualController.RIGHT && Turn == 0 && ending == 0) {
+			if (Item > 0) {
+				Item -= 1;
+				Turn = 0;
+				MyHp += 300;
+
+				if (MyHp > MaxMyHp) {
+					MyHp = MaxMyHp;
+				}
+				QLabel.setString("HPが回復した");
+				MyHpLabel.setString("HP: " + MyHp + "/" + MaxMyHp);
+				KaihukuLabel.setString("D:回復 × " + Item);
+				System.out.println(MyHp + " " + Item);
+				kaihuku.play();
+			}else {
+				Turn = 2;
 			}
-			QLabel.setString("HPが回復した");
-			MyHpLabel.setString("HP: " + MyHp + "/" + MaxMyHp);
-			System.out.println(MyHp + " " + Item);
-			kaihuku.play();
 		}
 
 		// 左　自爆
-		if (key.getVirtualKey() == RWTVirtualController.LEFT && Turn ==0 && ending ==0) {
+		if (key.getVirtualKey() == RWTVirtualController.LEFT && Turn == 0 && ending == 0) {
 			Zanki -= 1;
-			BossHp -= 400;
-			MyHp = MaxMyHp;
+			BossHp -= MaxMyHp;
+
+			if (Zanki >= 0) {
+				MyHp = MaxMyHp;
+			} else if (Zanki == 0) {
+				MyHp = 0;
+			}
+
 			ZankiLabel.setString("残機 × " + Zanki);
 			BossHpLabel.setString("BossHP: " + BossHp + "/" + BossMaxHp);
-			QLabel.setString("自爆に敵を巻き込んだ　" + 400 + "　のダメージ！");
+			MyHpLabel.setString("HP: " + MyHp + "/" + MaxMyHp);
+			QLabel.setString("自爆に敵を巻き込んだ　" + MaxMyHp + "　のダメージ！");
 			bomb.play();
 			System.out.println(BossHp + " " + Zanki);
 		}
+
 		//エンディングに飛ばす
-		if(BossHp <= 0 && ending ==1) {//勝った場合
+		if (BossHp <= 0 && ending == 1) {//勝った場合
 			trumpet.play();
-			BGM3D.playBGM(muon);
 			game.ending();
 		}
-		if(Zanki <= -1 && shibou == 1) {//負けた場合
-			BGM3D.playBGM(muon);
+		if (Zanki <= -1 && shibou == 1) {//負けた場合
+			tin.play();
 			game.ending();
 		}
 
 		//敵の攻撃
-		if(Turn == 1 && BossHp > 0) {
+		if (Turn == 1 && BossHp > 0) {
 
 			MyHp -= BossAttack;
-			if(MyHp <= 0) {//残機をへらす
-				Zanki --;
+			if (MyHp < 0 && Zanki > 0) {//残機をへらすしHPを最大値にする
 				MyHp = MaxMyHp;
+				Zanki--;
+			} else if (MyHp < 0 && Zanki == 0) {//残機がない場合はHPを0にする
+				MyHp = 0;
+				Zanki--;
 			}
-
 			ZankiLabel.setString("残機 × " + Zanki);
 			MyHpLabel.setString("HP: " + MyHp + "/" + MaxMyHp);
 			QLabel.setString(" 敵から　" + BossAttack + "　の　ダメージ！");
 			attack.play();
 		}
 
-		if(Turn < 2) {
+		if (Turn < 2) {
 			Turn += 1;
 		} else {
 			Turn = 0;
 			QLabel.setString("どうする？");
 		}
-		if(BossHp < 300 && angry == 0) {//HP一定以下で敵の攻撃力を上げる
+
+		if (BossHp < 300 && angry == 0) {//HP一定以下で敵の攻撃力を上げる
 			BossAttack = 150;
 			QLabel.setString("敵の攻撃力が上がった");
 			Turn = 2;
 			angry = 1;
 		}
-		if(BossHp <= 0) {//撃破時の文字表示
-			QLabel.setString("敵を撃破した");
 
+		if (BossHp <= 0) {//撃破時の処理
+			BossHp = 0;
+			BossHpLabel.setString("BossHP: " + BossHp + "/" + BossMaxHp);
+			QLabel.setString("敵を撃破した");
+			BGM3D.playBGM(muon);
 			ending = 1;
 		}
-		if(Zanki <= -1) {
+
+		if (Zanki <= -1) {//被撃破時の処理
 			QLabel.setString("やられてしまった");
-			tin.play();
+			BGM3D.playBGM(muon);
 			shibou = 1;
 		}
+
 		repaint();
 	}
 
