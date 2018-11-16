@@ -35,7 +35,7 @@ public class EndingContainer extends RWTContainer {
 		RWTLabel bottanLabel = new RWTLabel();
 		bottanLabel.setColor(Color.WHITE);
 		bottanLabel.setString("Press B");
-		bottanLabel.setRelativePosition(0.3f, 0.7f);
+		bottanLabel.setRelativePosition(0.4f, 0.7f);
 		Font f2 = new Font("", Font.PLAIN, 30);
 		bottanLabel.setFont(f2);
 		addWidget(bottanLabel);
