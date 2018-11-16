@@ -9,9 +9,12 @@ import framework.RWT.RWTImage;
 import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
+import framework.audio.BGM3D;
+import framework.audio.Sound3D;
 
 public class StartContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
+	private Sound3D startBGM = BGM3D.registerBGM("data\\sozai\\BGM\\start.wav");
 
 	public StartContainer(TemplateShooting2DMultiStates game) {
 		this.game = game;
@@ -19,12 +22,13 @@ public class StartContainer extends RWTContainer {
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
-		
+		BGM3D.playBGM(startBGM);
+
 		RWTImage backgroud = new RWTImage("data\\sozai\\haikeidesu.png");
 		backgroud.setRelativePosition(0.0f, 0.0f);//1500,-0.3
 		backgroud.setSize(960, 960);
 		addWidget(backgroud);
-		
+
 		RWTLabel titleLabel = new RWTLabel();
 		titleLabel.setString("RPGSHOOTING");
 		titleLabel.setRelativePosition(0.05f, 0.4f);
@@ -32,7 +36,7 @@ public class StartContainer extends RWTContainer {
 		titleLabel.setColor(Color.WHITE);
 		titleLabel.setFont(titlefont);
 		addWidget(titleLabel);
-		
+
 		RWTLabel startLabel = new RWTLabel();
 		startLabel.setString("Press B");
 		startLabel.setRelativePosition(0.35f, 0.7f);
@@ -40,11 +44,15 @@ public class StartContainer extends RWTContainer {
 		startLabel.setColor(Color.WHITE);
 		startLabel.setFont(startfont);
 		addWidget(startLabel);
+
+		repaint();
 	}
 
 	@Override
 	public void keyPressed(RWTVirtualKey key) {
 		if (key.getVirtualKey() == RWTVirtualController.BUTTON_A) {
+			Sound3D sound = new Sound3D("data\\sozai\\BGM\\start_button.wav");
+			sound.play();
 			game.play();
 		}
 	}
