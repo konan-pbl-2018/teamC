@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
 import framework.RWT.RWTContainer;
+import framework.RWT.RWTImage;
 import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
@@ -18,13 +19,20 @@ public class GameOverContainer extends RWTContainer {
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
+		RWTImage backgroud = new RWTImage("data\\sozai\\gameover.png");
+		backgroud.setRelativePosition(0.0f, 0.0f);
+		backgroud.setSize(960, 960);
+		addWidget(backgroud);
+
 		RWTLabel startLabel = new RWTLabel();
-		startLabel.setColor(Color.RED);
+		startLabel.setColor(Color.WHITE);
 		startLabel.setString("Game Over");
 		startLabel.setRelativePosition(0.3f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 60);
 		startLabel.setFont(f);
 		addWidget(startLabel);
+
+		repaint();
 	}
 
 	@Override

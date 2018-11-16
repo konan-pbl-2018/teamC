@@ -35,6 +35,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
 	private IGameState rpgGameState = null;
+	private IGameState gameoverGameState = null;
 	private RWTContainer container;
 
 	public TemplateShooting2DMultiStates() {
@@ -90,28 +91,23 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
 		};
-		//		shootingGameState = new IGameState() {
-		//			private int time;
-		//
-		//			@Override
-		//			public void init(RWTFrame3D frame) {
-		//				TemplateShooting2DMultiStates.this.frame = frame;
-		//				container = new ShootingContainer(TemplateShooting2DMultiStates.this);
-		//				changeContainer(container);
-		//			}
-		//
-		//			@Override
-		//			public boolean useTimer() {
-		//				return true;
-		//			}
-		//
-		//			@Override
-		//			public void update(RWTVirtualController virtualController, long interval) {
-		//				System.out.println("a");
-		//				time += interval;
-		//				((ShootingContainer) container).setStartLabelText("" + time);
-		//			}
-		//		};
+		gameoverGameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateShooting2DMultiStates.this.frame = frame;
+				container = new GameOverContainer(TemplateShooting2DMultiStates.this);
+				changeContainer(container);
+			}
+
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+			}
+		};
 		setCurrentGameState(initialGameState);
 	}
 
@@ -135,6 +131,12 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	public void ending() {
 		stop();
 		setCurrentGameState(finalGameState);
+		start();
+	}
+
+	public void go() {
+		stop();
+		setCurrentGameState(gameoverGameState);
 		start();
 	}
 
