@@ -12,10 +12,10 @@ public class MyShipScript extends Sprite {
 	public int playerShift = 0;//プレイヤー0かプレイヤー１かを指定
 	int countFrame = 0;//1フレームごとに増加する
 
-	public static int lifeNumber;
-	public static int attackNumber;
-	public static int maxHPValue;
-	public static int healItemNumber;
+	public static int lifeNumber;//残機
+	public static int attackNumber;//攻撃力
+	public static int maxHPValue;//体力の最大値
+	public static int healItemNumber;//回復アイテム数
 
 	//インスタンス生成時に初期値を設定
 	ArrayList<MyBullet> myBulletList;
@@ -29,6 +29,11 @@ public class MyShipScript extends Sprite {
 		attackNumber=0;
 		maxHPValue=0;
 		healItemNumber=0;
+
+		RPGContainer.MyAttack=50;
+		RPGContainer.Item=5;
+		RPGContainer.MyHp=400;
+		RPGContainer.Zanki=5;
 
 		myShipHP = _hp;
 		speed = _speed;

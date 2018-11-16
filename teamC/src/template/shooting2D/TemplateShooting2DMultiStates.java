@@ -200,12 +200,14 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		//		if(PlayTimeCount / 1000 >= 180){
 		//			rpg();
 		//		}
+
+
 		switch (enemySetFrame) {
 		case 10:
 			setEnemy(5, 0, 2, 10,-5,0, "Attack");
 			break;
 		case 30:
-			setEnemy(5, 0, 2, 10,-5,0, "HP");
+			setEnemy(10, 0, 2, 10,-5,0, "Attack");
 			break;
 		}
 

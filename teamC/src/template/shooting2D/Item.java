@@ -41,16 +41,20 @@ public class Item extends Sprite {
 	public void setValueMyShip() {
 		if (itemName.equals("Attack")) {
 			MyShipScript.attackNumber+=1;
+			RPGContainer.MyAttack+=2;
 		}
 		else if(itemName.equals("HP")) {
 			MyShipScript.maxHPValue+=10;
+			RPGContainer.MyHp+=10;
 			upValue=20;
 
 		}else if(itemName.equals("Life")) {
 			MyShipScript.lifeNumber+=1;
+			RPGContainer.Zanki+=1;
 
 		}else if(itemName.equals("Heal")) {
 			MyShipScript.healItemNumber+=1;
+			RPGContainer.Item+=1;
 
 		}
 	}

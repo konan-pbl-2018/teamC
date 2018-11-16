@@ -59,7 +59,10 @@ public class EnemyScript extends Sprite {
 
 	public void collision() {
 		if (checkCollision(myShipScript)) {
-			enemyHP--;
+			universe.displace(this);
+			isDestroy=true;
+			setPosition(0, -100);
+			RPGContainer.Zanki-=1;
 			System.out.println("プレイヤーと衝突した！！");
 		}
 		for (int i = 0; i < myBulletList.size(); i++) {
