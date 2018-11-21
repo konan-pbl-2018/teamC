@@ -200,7 +200,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		PlayTimeCount += interval;
 
 		//タイムとライフの表示
-		((ShootingContainer) container).setStartLabelText("" + (180 - PlayTimeCount / 1000));
+		((ShootingContainer) container).setStartLabelText("" + (60 - PlayTimeCount / 1000));
 
 		//RPGへの移行
 		if(PlayTimeCount / 1000 >= 60){
