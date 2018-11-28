@@ -20,8 +20,6 @@ public class RPGContainer extends RWTContainer {
 		this.game = game;
 	}
 
-
-
 	int Turn = 6;
 	int ending = 0;//エンディングのフラグ
 	int angry = 0;//怒り状態のフラグ
@@ -35,6 +33,8 @@ public class RPGContainer extends RWTContainer {
 	int MaxMyHp = MyHp;
 	public static int MyAttack = 50;//攻撃力
 	public static int Item = 5;//回復回数
+
+	public static int illust = 0;
 
 	Sound3D battle = BGM3D.registerBGM("data\\sozai\\BGM\\battle.wav");
 	Sound3D fate = BGM3D.registerBGM("data\\sozai\\BGM\\fate2.wav");
@@ -59,14 +59,27 @@ public class RPGContainer extends RWTContainer {
 		BGM3D.playBGM(battle);
 		monstergrow.play();
 
-		RWTImage BackImage = new RWTImage("data\\sozai\\RPGBack.png");
-		BackImage.setRelativePosition(-1f, 0f);
-		addWidget(BackImage);
+		if (illust == 0) {
+			RWTImage BackImage = new RWTImage("data\\sozai\\RPGBack.png");
+			BackImage.setRelativePosition(-1f, 0f);
+			addWidget(BackImage);
 
-		RWTImage BackImage2 = new RWTImage("data\\sozai\\blackback.png");
-		BackImage2.setRelativePosition(0.02f, 0.7f);
-		addWidget(BackImage2);
-		repaint();
+			RWTImage BackImage2 = new RWTImage("data\\sozai\\blackback.png");
+			BackImage2.setRelativePosition(0.02f, 0.7f);
+			addWidget(BackImage2);
+			repaint();
+		}
+
+		if (illust == 1) {
+			RWTImage BackImage = new RWTImage("data\\sozai\\RPGhaikei.png");
+			BackImage.setRelativePosition(-1f, 0f);
+			addWidget(BackImage);
+
+			RWTImage BackImage2 = new RWTImage("data\\sozai\\blackback.png");
+			BackImage2.setRelativePosition(0.02f, 0.7f);
+			addWidget(BackImage2);
+			repaint();
+		}
 
 		RWTLabel AttackLabel = new RWTLabel();
 		AttackLabel.setString("W:攻撃");//RWTLabel.NEW_PARAGRAPH
@@ -147,13 +160,25 @@ public class RPGContainer extends RWTContainer {
 		line5.setColor(Color.WHITE);
 		addWidget(line5);
 
-		RWTImage MyImage = new RWTImage("data\\sozai\\自機最終です.png");
-		MyImage.setRelativePosition(0f, 0.36f);
-		addWidget(MyImage);
+		if (illust == 0) {
+			RWTImage MyImage = new RWTImage("data\\sozai\\自機最終です.png");
+			MyImage.setRelativePosition(0f, 0.36f);
+			addWidget(MyImage);
 
-		RWTImage BossImage = new RWTImage("data\\images\\boss.png");
-		BossImage.setRelativePosition(0.65f, 0.05f);
-		addWidget(BossImage);
+			RWTImage BossImage = new RWTImage("data\\images\\boss.png");
+			BossImage.setRelativePosition(0.65f, 0.05f);
+			addWidget(BossImage);
+		}
+
+		if (illust == 1) {
+			RWTImage MyImage = new RWTImage("data\\sozai\\shoot_man最終.png");
+			MyImage.setRelativePosition(0f, 0.36f);
+			addWidget(MyImage);
+
+			RWTImage BossImage = new RWTImage("data\\sozai\\akuma.png");
+			BossImage.setRelativePosition(0.65f, 0.05f);
+			addWidget(BossImage);
+		}
 
 		repaint();
 
@@ -202,7 +227,7 @@ public class RPGContainer extends RWTContainer {
 				KaihukuLabel.setString("D:回復 × " + Item);
 				System.out.println(MyHp + " " + Item);
 				kaihuku.play();
-			}else {
+			} else {
 				Turn = 2;
 			}
 		}

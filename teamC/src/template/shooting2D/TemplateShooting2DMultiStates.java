@@ -159,9 +159,17 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		//
 		// ////////////////////////////////////////////////////////
 
-		myShipScript = new MyShipScript(universe, "data\\\\sozai\\\\自機の大きさ25%.png", myBulletList, 5, 10);
-		myShipScript.setPosition(0.0, 0.0);
-		universe.place(myShipScript);
+		if (RPGContainer.illust == 0) {
+			myShipScript = new MyShipScript(universe, "data\\\\sozai\\\\自機の大きさ25%.png", myBulletList, 5, 10);
+			myShipScript.setPosition(0.0, 0.0);
+			universe.place(myShipScript);
+		}
+
+		if (RPGContainer.illust == 1) {
+			myShipScript = new MyShipScript(universe, "data\\\\sozai\\\\shoot_man.png", myBulletList, 5, 20);
+			myShipScript.setPosition(0.0, 0.0);
+			universe.place(myShipScript);
+		}
 
 		enemyScript = new EnemyScript(universe, myShipScript, myBulletList, "data\\images\\Enemy.gif", 10, -1, 0,
 				"Attack");
@@ -176,8 +184,15 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 				windowSizeHeight);
 		universe.place(stage);
 
-		background = new Back("data\\sozai\\back ground.png", RANGE / 2);
-		universe.place(background);
+		if (RPGContainer.illust == 0) {
+			background = new Back("data\\sozai\\back ground.png", RANGE / 2);
+			universe.place(background);
+		}
+
+		if (RPGContainer.illust == 1) {
+			background = new Back("data\\sozai\\space.png", RANGE / 2);
+			universe.place(background);
+		}
 
 		// 表示範囲を決める（左上を原点としてその原点から幅、高さを計算する）
 		setViewRange(RANGE, RANGE);
@@ -203,65 +218,75 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		((ShootingContainer) container).setStartLabelText("" + (60 - PlayTimeCount / 1000));
 
 		//RPGへの移行
-		if(PlayTimeCount / 1000 >= 60){
+		if (PlayTimeCount / 1000 >= 10) {
 			rpg();
 		}
 
-
 		switch (enemySetFrame) {
-		case 1*60:
-			setEnemy(5, 0, 2, 10,-5,0, "Attack");
+		case 1 * 60:
+			setEnemy(5, 0, 2, 10, -5, 0, "Attack");
 			break;
-		case 3*60:
-			setEnemy(10, 0, 2, 1,-5,0, "Attack");
+		case 3 * 60:
+			setEnemy(10, 0, 2, 1, -5, 0, "Attack");
 			break;
-		case 6*60:
-			for(int i=0;i<5;i++)setEnemy(16, 10-i*2, 2, 1,-5,0, "Attack");
+		case 6 * 60:
+			for (int i = 0; i < 5; i++)
+				setEnemy(16, 10 - i * 2, 2, 1, -5, 0, "Attack");
 			break;
-		case 10*60:
-			setEnemy(10, 0, 2, 10,-5,30, "HP");
+		case 10 * 60:
+			setEnemy(10, 0, 2, 10, -5, 30, "HP");
 			break;
-		case 15*60:
+		case 15 * 60:
 
-			setEnemy(16, 0, 4, 5,-5,45, "Attack");
+			setEnemy(16, 0, 4, 5, -5, 45, "Attack");
 			break;
-		case 20*60:
+		case 20 * 60:
 
-			setEnemy(16, -10, 4, 5,-5,45, "Life");
-			setEnemy(16, 10, 4, 5,-5,45, "Attack");
+			setEnemy(16, -10, 4, 5, -5, 45, "Life");
+			setEnemy(16, 10, 4, 5, -5, 45, "Attack");
 			break;
-		case 30*60:
+		case 30 * 60:
 
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 4, 5,-6*(i/n),45, "HP");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 10, 4, 5, -6 * (i / n), 45, "HP");
 			break;
-		case 31*60:
+		case 31 * 60:
 
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, -10, 4, 5,-6*(i/n),45, "Attack");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, -10, 4, 5, -6 * (i / n), 45, "Attack");
 			break;
-		case 35*60:
+		case 35 * 60:
 
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 2, 5,-6*(i/n),i*15, "Attack");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 10, 2, 5, -6 * (i / n), i * 15, "Attack");
 			break;
-		case 40*60:
+		case 40 * 60:
 
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 5, 3, 5,-10*(i/n),i*15, "HP");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 5, 3, 5, -10 * (i / n), i * 15, "HP");
 			break;
-		case 45*60:
+		case 45 * 60:
 
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 50, 2, 5,-7,i*-15, "Attack");
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 0, 2, 5,-7,i*-15, "Attack");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 50, 2, 5, -7, i * -15, "Attack");
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 0, 2, 5, -7, i * -15, "Attack");
 			break;
-		case 47*60:
-			for(double i=1,n=5;i<=n;i++)setEnemy(16, 10, 1, 5,-10*(i/n),i*-15, "Attack");
+		case 47 * 60:
+			for (double i = 1, n = 5; i <= n; i++)
+				setEnemy(16, 10, 1, 5, -10 * (i / n), i * -15, "Attack");
 
 			break;
-		case 50*60:
-			for(double i=1,n=10;i<=n;i++)setEnemy(16, 15, 1, 5,-10,45+i*-15, "Attack");
+		case 50 * 60:
+			for (double i = 1, n = 10; i <= n; i++)
+				setEnemy(16, 15, 1, 5, -10, 45 + i * -15, "Attack");
 
 			break;
-		case 55*60:
-			for(double i=1,n=10;i<=n;i++)setEnemy(16, 0, 1, 5,-10,45+i*-15, "Attack");
-			for(double i=1,n=10;i<=n;i++)setEnemy(16, 2, 1, 5,-10,45+i*-15, "Attack");
+		case 55 * 60:
+			for (double i = 1, n = 10; i <= n; i++)
+				setEnemy(16, 0, 1, 5, -10, 45 + i * -15, "Attack");
+			for (double i = 1, n = 10; i <= n; i++)
+				setEnemy(16, 2, 1, 5, -10, 45 + i * -15, "Attack");
 			break;
 		}
 
@@ -271,7 +296,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		if (virtualController.isKeyDown(Event.ENTER)) {
 			ending();
 		}
-		if(RPGContainer.Zanki<0) {
+		if (RPGContainer.Zanki < 0) {
 			go();
 		}
 
@@ -295,20 +320,36 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		enemySetFrame++;
 
 	}
+
 	/**
 	 * 敵を置く関数
 	 * x座標,y座標,番号(1～4),体力,スピード(負の値で左に進む)，角度(度数法),落とすアイテム
 	 * "Attack" "HP" "Life" "Heal"
 	 */
-	void setEnemy(double x, double y,int enemyNum, int _enemyHP, double _speed, double _angle, String itemname) {
-		EnemyScript enemy;
-		String imageFile;
-		imageFile="data\\sozai\\enemy"+enemyNum+".png";
-		System.out.println(imageFile);
-		enemy = new EnemyScript(universe, myShipScript, myBulletList,imageFile, _enemyHP, _speed, _angle, itemname);
-		enemy.setPosition(x, y);
-		universe.place(enemy);
-		enemyList.add(enemy);
+	void setEnemy(double x, double y, int enemyNum, int _enemyHP, double _speed, double _angle, String itemname) {
+		if (RPGContainer.illust == 0) {
+			EnemyScript enemy;
+			String imageFile;
+			imageFile = "data\\sozai\\enemy" + enemyNum + ".png";
+			System.out.println(imageFile);
+			enemy = new EnemyScript(universe, myShipScript, myBulletList, imageFile, _enemyHP, _speed, _angle,
+					itemname);
+			enemy.setPosition(x, y);
+			universe.place(enemy);
+			enemyList.add(enemy);
+		}
+
+		if (RPGContainer.illust == 1) {
+			EnemyScript enemy;
+			String imageFile;
+			imageFile = "data\\sozai\\teki" + enemyNum + ".png";
+			System.out.println(imageFile);
+			enemy = new EnemyScript(universe, myShipScript, myBulletList, imageFile, _enemyHP, _speed, _angle,
+					itemname);
+			enemy.setPosition(x, y);
+			universe.place(enemy);
+			enemyList.add(enemy);
+		}
 
 	}
 
