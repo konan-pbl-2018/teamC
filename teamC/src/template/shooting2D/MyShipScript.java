@@ -95,6 +95,12 @@ public class MyShipScript extends Sprite {
 			if (switchBullet > maxswitch)
 				switchBullet = 0;
 		}
+		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_I)) {
+			RPGContainer.illust = 1;
+		}
+		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_N)) {
+			RPGContainer.illust = 0;
+		}
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
 			Sound3D sound = new Sound3D("data\\sozai\\BGM\\attack.wav");
 			sound.play();
